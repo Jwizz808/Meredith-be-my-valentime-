@@ -6,8 +6,6 @@
 
 <style>
 
-/* BACKGROUND */
-
 body{
     margin:0;
     font-family:Arial, sans-serif;
@@ -23,13 +21,15 @@ body{
     flex-direction:column;
     justify-content:center;
     align-items:center;
+    position:relative; /* IMPORTANT — anchors the No button */
 }
 
 h1{
     font-size:3rem;
     color:white;
-    margin-bottom:10px;
 }
+
+/* BUTTONS */
 
 button{
     padding:15px 30px;
@@ -50,13 +50,17 @@ button{
     transform:scale(1.1);
 }
 
+/* FIXED NO BUTTON */
+
 #no{
     background:#ff4d4d;
     color:white;
     position:absolute;
+    left:60%;   /* starting position */
+    top:60%;
 }
 
-/* GALLERY PAGE */
+/* GALLERY */
 
 .gallery{
     display:none;
@@ -66,14 +70,9 @@ button{
     padding:80px 20px;
 }
 
-.gallery h1{
-    margin-bottom:0;
-}
-
 .gallery p{
     color:white;
     font-size:1.4rem;
-    margin-top:5px;
 }
 
 /* PHOTO ROW */
@@ -81,13 +80,10 @@ button{
 .photo-row{
     display:flex;
     justify-content:center;
-    align-items:flex-start;
     gap:50px;
     margin-top:40px;
-    flex-wrap:wrap; /* mobile friendly */
+    flex-wrap:wrap;
 }
-
-/* PHOTO CARDS */
 
 .photo-card{
     width:280px;
@@ -98,8 +94,6 @@ button{
     font-size:1.2rem;
     font-weight:bold;
 }
-
-/* IMAGES */
 
 img{
     width:100%;
@@ -154,26 +148,31 @@ img:hover{
 
 <script>
 
-// moving "No" button
 const noBtn = document.getElementById('no');
 
+/* Make the No button run away */
 noBtn.addEventListener('mouseover', () => {
 
-    const x = Math.random() * (window.innerWidth - noBtn.clientWidth);
-    const y = Math.random() * (window.innerHeight - noBtn.clientHeight);
+    const container = document.querySelector('.container');
+
+    const maxX = container.clientWidth - noBtn.clientWidth;
+    const maxY = container.clientHeight - noBtn.clientHeight;
+
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
 
     noBtn.style.left = `${x}px`;
     noBtn.style.top = `${y}px`;
 });
 
 
-// show gallery
+/* Show gallery */
 document.getElementById('yes').onclick = () => {
 
     document.getElementById('question').style.display='none';
     document.getElementById('gallery').style.display='flex';
 
-    window.scrollTo(0,0); // ensures header is visible
+    window.scrollTo(0,0);
 };
 
 </script>
